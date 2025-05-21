@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 # Create your views here.
 def login_request(request):
@@ -11,7 +11,7 @@ def login_request(request):
 
         if user is not None:
             login(request,user)
-            return render(request, 'index.html')
+            return render(request, 'home.html')
         
     return render(request, 'login.html')
 
@@ -31,3 +31,7 @@ def register_request(request):
             return redirect('login')
 
     return render(request, 'register.html')
+
+def logout_request(request):
+    logout(request)
+    return redirect('/')
