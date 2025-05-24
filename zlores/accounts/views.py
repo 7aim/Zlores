@@ -58,3 +58,18 @@ def profile_request(request):
             return redirect('/')
     
     return render(request, 'profile.html')
+
+def resetpassword_request(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        new_password = request.POST['new_password']
+
+        if User.objects.filter(username=username).exists():
+            user = User.objects.get(username=username)
+            if user.email == email:
+                user.set_password(new_password)
+                user.save()
+                return redirect('/login')
+        
+    return render(request, 'resetpassword.html')
