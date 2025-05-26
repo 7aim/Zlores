@@ -19,6 +19,8 @@
       <label for="email">Email:</label><br>
       <input type="text" id="email" name="email" placeholder="{{ user.email }}" ><br><br>
 
-      <button type="submit">Update</button>
+      <button type="submit">Update</button><br>
+
+      <a href="{% url 'myposts' %}">New Post</a>
   </form>
 {% endblock %}

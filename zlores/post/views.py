@@ -12,3 +12,7 @@ def createpost_request(request):
         return redirect('/')
 
     return render(request, 'createpost.html') 
+
+@login_required
+def myposts_request(request):
+    return render(request, 'myposts.html') 
