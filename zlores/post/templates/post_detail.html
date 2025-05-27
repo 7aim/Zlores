@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ post.title }} - Zlores{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="post-detail">
+        <h1>{{ post.title }}</h1>
+        <p class="content">{{ post.content }}</p>
+        <p class="meta"><strong>Author:</strong> {{ post.author.username }}</p>
+        <p class="meta"><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
+        <p class="meta"><strong>Score:</strong> {{ post.score }}</p>
+    </div>
+{% endblock %}

@@ -1,30 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - Zlores{% endblock %}
+{% load static %}
+
+{% block title %}Create Post - Zlores{% endblock %}
 
 {% block styles %}
-<style>
-    .createpost {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        padding: 20px;
-    }
-    .createpost form {
-        max-width: 400px;
-    }
-    .createpost input, 
-    .createpost textarea, 
-    .createpost button {
-        width: 100%;
-        margin-bottom: 15px;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-    .createpost button {
-        background-color: #007BFF;
-        color: white;
-    }
-</style>
+    <link rel="stylesheet" href="{% static 'css/createpost.css' %}">
 {% endblock %}
 
 {% block content %}

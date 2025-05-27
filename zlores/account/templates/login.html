@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Login - Zlores{% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 {% block content %}
-  <h2>Login Form</h2>
-  <form action="{% url 'login' %}" method="POST">
-    {% csrf_token %}
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username" required><br><br>
+    <div class="login-form">
+        <h2>Login</h2>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
-    <div>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
-        <a href="{% url 'resetpassword' %}" style="font-size: 12px;">Reset password</a>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <a href="{% url 'resetpassword' %}" class="reset-password">Forgot your password?</a>
+
+            <button type="submit">Login</button>
+        </form>
     </div>
-
-    <button type="submit">Login</button>
-  </form>
 {% endblock %}

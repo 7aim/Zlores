@@ -1,26 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - Zlores{% endblock %}
+{% load static %}
+
+{% block title %}Your Profile - Zlores{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
 
 {% block content %}
-  <h2>Your Profile</h2>
+    <div class="profile-form">
+        <h2>Your Profile</h2>
+        <form action="{% url 'profile' %}" method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="{{ user.username }}" required>
 
-  <form action="{% url 'profile' %}" method="POST">
-      {% csrf_token %}
-      <label for="username">Username:</label><br>
-      <input type="text" id="username" name="username" placeholder="{{ user.username }}" ><br><br>
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" placeholder="{{ user.first_name }}" required>
 
-      <label for="first_name">First name:</label><br>
-      <input type="text" id="first_name" name="first_name" placeholder="{{ user.first_name }}" ><br><br>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" placeholder="{{ user.last_name }}" required>
 
-      <label for="last_name">Last name:</label><br>
-      <input type="text" id="last_name" name="last_name" placeholder="{{ user.last_name }}" ><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="{{ user.email }}" required>
 
-      <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email" placeholder="{{ user.email }}" ><br><br>
-
-      <button type="submit">Update</button><br>
-
-      <a href="{% url 'myposts' %}">New Post</a>
-  </form>
+            <button type="submit">Update</button>
+        </form>
+        <a href="{% url 'myposts' %}" class="my-posts-link">My Posts</a>
+    </div>
 {% endblock %}
