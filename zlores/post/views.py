@@ -21,4 +21,4 @@ def myposts_request(request):
 @login_required
 def post_detail_request(request, id):
     post = get_object_or_404(Post, id=id)
-    return render(request, 'post_detail.html', {'post': post})
+    return render(request, 'postdetail.html', {'post': post})

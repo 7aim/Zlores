@@ -58,16 +58,3 @@ body {
 .profile-form button:hover {
     background-color: #0056b3;
 }
-
-.my-posts-link {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    color: #007BFF;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.my-posts-link:hover {
-    color: #0056b3;
-}

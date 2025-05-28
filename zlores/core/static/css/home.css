@@ -1,0 +1,30 @@
+.post-container {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px; /* Postlar arasında boşluk */
+}
+
+.post-container h2 {
+    color: #007BFF;
+    margin: 0 0 10px;
+}
+
+.post-container p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.post-container .read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.post-container .read-more:hover {
+    color: #0056b3;
+}

@@ -10,6 +10,8 @@ class Post(models.Model):
     upvotes = models.PositiveIntegerField(default=0)  # Upvote sayısı
     downvotes = models.PositiveIntegerField(default=0)  # Downvote sayısı
     is_active = models.BooleanField(default=True)  # Post aktif mi?
+    is_home = models.BooleanField(default=False)  # Post kesfet mi?
+    
 
     def __str__(self):
         return self.title

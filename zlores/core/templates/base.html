@@ -37,6 +37,11 @@
         font-weight: bold;
         color: white;
         text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .navbar .logo:hover {
+    color: #FFD700;
     }
 
     .navbar .menu {
@@ -59,35 +64,9 @@
     /* Ana İçerik */
     .content {
         padding: 30px;
-        background-color: #ffffff;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin: 30px auto;
         max-width: 900px;
-    }
-
-    /* Footer */
-    .footer {
-        background-color: #333;
-        color: white;
-        text-align: center;
-        padding: 15px 0;
-        margin-top: 40px;
-    }
-
-    .footer p {
-        margin: 0;
-        font-size: 14px;
-    }
-
-    .footer a {
-        color: #FFD700;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .footer a:hover {
-        color: #ffffff;
     }
   </style>
   {% block styles %}{% endblock %}
@@ -99,6 +78,7 @@
       <a class="logo" href="/">Zlores</a>
       <nav class="menu">
         {% if user.is_authenticated %}
+        <a href="{% url 'myposts' %}">My Posts</a>
           <a href="{% url 'createpost' %}">New Post</a>
           <a href="{% url 'profile' %}">Profile</a>
           <a href="{% url 'logout' %}">Logout</a>
@@ -114,12 +94,5 @@
   <main class="content">
     {% block content %}{% endblock %}
   </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 Zlores. All rights reserved. <a href="#">Privacy Policy</a></p>
-    </div>
-  </footer>
 </body>
 </html>
