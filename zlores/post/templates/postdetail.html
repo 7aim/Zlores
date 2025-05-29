@@ -9,11 +9,49 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Post sehifesi.Post haqqinda melumatlar ve funksiyalar-->
     <div class="post-detail">
         <h1>{{ post.title }}</h1>
         <p class="content">{{ post.content }}</p>
         <p class="meta"><strong>Author:</strong> {{ post.author.username }}</p>
         <p class="meta"><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
         <p class="meta"><strong>Score:</strong> {{ post.score }}</p>
+        {% if user.username == post.author.username %}
+            <a class="update" href="{% url 'updatepost' post.id %}">Update</a>
+            <a class="delete" href="{% url 'deletepost' post.id %}">Delete</a>
+        {% endif %}
+    </div>
+
+    <!-- Comment sehifesi.Comment haqqinda melumatlar ve funksiyalar-->
+    <div class="comments">
+        <h2>Comments</h2>
+        <div class="comment-container">
+
+            <!-- Comment yazma hissesi-->
+            <div class="comment-container">
+                <p><strong>{{ user.username }}</strong>
+                <form method="POST" action="{% url 'addcomment' post.id %}" class="comment-form">
+                    {% csrf_token %}
+                    <textarea name="commentcontent" placeholder="Write a comment..." required></textarea>
+                    <button type="submit" class="submit-button">Send</button>    
+                </form>
+            </div>
+
+            <!-- Commentlerin oldugu hisse-->
+            {% for comment in post.comments.all %}
+                <div class="comment-container">
+                    <p><strong>{{ comment.author.username }}</strong>: {{ comment.content }}</p>
+                    <p><small>{{ comment.created_at|date:"d M Y H:i" }}</small></p>
+                    {% if user.username == post.author.username %}
+                        <a class="delete" href="{% url 'deletecomment' post.id comment.id %}">Delete</a>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="comment-container">
+                    <p>No comments yet.</p>
+                </div>
+            {% endfor %}
+            
+        </div>
     </div>
 {% endblock %}

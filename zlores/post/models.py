@@ -20,3 +20,12 @@ class Post(models.Model):
     def score(self):
         """Post'un toplam puanını hesaplar."""
         return self.upvotes - self.downvotes
+    
+class Comment(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')  # Post ile ilişki
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # Yorum yazarı
+    content = models.TextField()  # Yorum içeriği
+    created_at = models.DateTimeField(auto_now_add=True)  # Yorum oluşturulma tarihi
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.post}"
