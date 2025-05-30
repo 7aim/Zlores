@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from .models import Profile
+from post.models import Post
 from django.contrib.auth.decorators import login_required
 
 def login_request(request):
@@ -37,28 +39,6 @@ def logout_request(request):
     logout(request)
     return redirect('/')
 
-@login_required
-def profile_request(request):
-    if request.method == "POST":
-        user = request.user
-
-        if request.POST['username']:
-            user.username = request.POST['username']
-        if request.POST['first_name']:
-            user.first_name = request.POST['first_name']
-        if request.POST['last_name']:
-            user.last_name = request.POST['last_name']
-        if request.POST['email']:
-            user.email = request.POST['email']
-
-        if User.objects.filter(username=user.username).exclude(id=user.id).exists() or User.objects.filter(email=user.email).exclude(id=user.id).exists():
-            return redirect('/')
-        else:
-            user.save()
-            return redirect('/')
-    
-    return render(request, 'profile.html')
-
 def resetpassword_request(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -73,3 +53,49 @@ def resetpassword_request(request):
                 return redirect('/login')
         
     return render(request, 'resetpassword.html')
+
+@login_required
+def profile_request(request):
+    # Profile nesnesini kontrol et ve oluştur
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == "POST":
+        form_type = request.POST.get('form_type')  # Hangi formun gönderildiğini kontrol et
+
+        if form_type == "profile":
+            # Profile formunu işle
+            if request.POST.get('bio'):
+                profile.bio = request.POST['bio']
+            if request.POST.get('link'):
+                profile.link = request.POST['link']
+            if request.FILES.get('image'):
+                profile.image = request.FILES['image']
+            profile.save()
+            return redirect('profile')
+
+        elif form_type == "settings":
+            # Settings formunu işle
+            user = request.user
+            if request.POST.get('username'):
+                user.username = request.POST['username']
+            if request.POST.get('first_name'):
+                user.first_name = request.POST['first_name']
+            if request.POST.get('last_name'):
+                user.last_name = request.POST['last_name']
+            if request.POST.get('email'):
+                user.email = request.POST['email']
+
+            # Kullanıcı adı veya e-posta zaten varsa kontrol et
+            if User.objects.filter(username=user.username).exclude(id=user.id).exists() or User.objects.filter(email=user.email).exclude(id=user.id).exists():
+                return redirect('profile')
+            else:
+                user.save()
+                return redirect('profile')
+
+    return render(request, 'profile.html', {'profile': profile})
+
+@login_required
+def userprofile_request(request, author):
+    user = User.objects.get(username=author)
+    profile = Profile.objects.get(user=user)
+    return render(request, 'userprofile.html', {'author' : author, 'profile' : profile})

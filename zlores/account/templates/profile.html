@@ -10,8 +10,27 @@
 
 {% block content %}
     <div class="profile-form">
-        <h2>Your Profile</h2>
-        <form action="{% url 'profile' %}" method="POST">
+        <form action="{% url 'profile' %}" method="POST" id="profile-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-image">
+                <img src="{{ profile.image.url }}">
+            </div>
+            <h2>{{ user.username}}</h2>
+            <label for="image">Upload Image</label>
+            <input type="file" id="image" name="image" accept="image/*">
+            <label for="bio">Bio:</label>
+            <input type="text" id="bio" name="bio" placeholder="{{ profile.bio }}" >
+
+            <label for="link">Link:</label>
+            <input type="text" id="link" name="link" placeholder="{{ profile.link }}" >
+
+            <button type="submit" name="form_type" value="profile">Update Profile</button>
+        </form>
+    </div>
+
+    <div class="profile-form">
+        <h2>Settings</h2>
+        <form action="{% url 'profile' %}" method="POST" id="settings-form">
             {% csrf_token %}
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" placeholder="{{ user.username }}" required>
@@ -25,7 +44,7 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="{{ user.email }}" required>
 
-            <button type="submit">Update</button>
+            <button type="submit" name="form_type" value="settings">Update Settings</button>
         </form>
     </div>
 {% endblock %}

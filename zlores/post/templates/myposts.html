@@ -2,30 +2,38 @@
 
 {% load static %}
 
-{% block title %}My Posts - Zlores{% endblock %}
+{% block title %}Home - Zlores{% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/myposts.css' %}">
 {% endblock %}
 
 {% block content %}
-    <!--My Post sehifesi-->
-    <div class="myposts">
-        <h1>My Posts</h1>   
-
-        <!--Postlarin oldugu hisse-->
+    <!--Ana sehife-->
+    <h1>My Posts</h1>
+    <div class="home">
         {% if posts.exists %}
-            <ul class="post-list">
+            <div class="post-list">
                 {% for post in posts %}
-                    <li class="post-item">
-                        <h2>{{ post.title }}</h2>
-                        <p>{{ post.content|truncatewords:30 }}</p>
-                        <p><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
-                        <p><strong>Score:</strong> {{ post.score }}</p>
-                        <a class="read-more" href="{% url 'postdetail' post.id %}">Read More</a>
-                    </li>
+                    <div class="post-container">
+                        <div class="post-content">
+                            <h2>{{ post.title }}</h2>
+                            <p>{{ post.content|truncatewords:20 }}</p>
+                            <p><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
+                            <p>
+                                <a href="{% url 'likepost' post.id %}" class="like-button">{{ post.totallikes }}</a>
+                                <a href="{% url 'dislikepost' post.id %}" class="dislike-button">{{ post.totaldislikes }}</a>
+                            </p>
+                            <a class="read-more" href="{% url 'postdetail' post.id %}">Read More</a>
+                        </div>
+                        {% if post.image %}
+                        <div class="post-image">
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                        </div>
+                        {% endif %}
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         {% else %}
             <p class="no-posts">You haven't created any posts yet.</p>
         {% endif %}

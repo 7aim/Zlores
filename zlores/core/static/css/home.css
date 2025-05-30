@@ -3,7 +3,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin-bottom: 20px; /* Postlar arasında boşluk */
+    margin-bottom: 20px; 
 }
 
 .post-container h2 {
@@ -27,4 +27,58 @@
 
 .post-container .read-more:hover {
     color: #0056b3;
+}
+.like-button, .dislike-button {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    color: white;
+    background-color: #007BFF;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.like-button:hover {
+    background-color: #0056b3;
+}
+
+.dislike-button {
+    background-color: #FF0000;
+}
+
+.dislike-button:hover {
+    background-color: #cc0000;
+}
+.post-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-content {
+    flex: 1; /* İçeriğin esnek genişliği */
+    margin-right: 15px; /* Resimle içerik arasındaki boşluk */
+}
+
+.post-image {
+    width: 200px; /* Kare kutunun genişliği */
+    height: 200px; /* Kare kutunun yüksekliği */
+    overflow: hidden; /* Taşan kısımları gizle */
+    border-radius: 8px; /* Köşeleri yuvarla */
+    flex-shrink: 0; /* Resmin boyutunun küçülmesini engelle */
+}
+
+.post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Resmi kutuya sığdır ve kırp */
+    border-radius: 8px; /* Resmin köşelerini yuvarla */
 }

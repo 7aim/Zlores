@@ -11,7 +11,8 @@ def myposts_request(request):
 @login_required
 def post_detail_request(request, id):
     post = get_object_or_404(Post, id=id)
-    return render(request, 'postdetail.html', {'post': post})
+    comments = Comment.objects.filter(post=post).order_by('-created_at')
+    return render(request, 'postdetail.html', {'post': post, 'comments' : comments})
 
 
 
@@ -20,9 +21,10 @@ def createpost_request(request):
     if request.method == 'POST':
         title = request.POST['title']
         content = request.POST['content']
-        post = Post.objects.create(title=title, content=content,author=request.user)
+        image = request.FILES.get('image')
+        post = Post.objects.create(title=title, content=content, image=image, author=request.user)
         post.save()
-        return redirect('/')
+        return redirect('myposts')
 
     return render(request, 'createpost.html') 
 
@@ -64,3 +66,23 @@ def deletecomment_request(request, postid, commentid):
     comment = get_object_or_404(Comment, post=post, id=commentid)
     comment.delete()
     return redirect('postdetail', id=post.id)
+
+@login_required
+def likepost(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)  # Zaten beğenmişse kaldır
+    else:
+        post.likes.add(request.user)  # Beğeni ekle
+        post.dislikes.remove(request.user)  # Beğenmediyse kaldır
+    return redirect(request.META.get('HTTP_REFERER', '/'))  # Geldiği sayfaya yönlendir
+
+@login_required
+def dislikepost(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.user in post.dislikes.all():
+        post.dislikes.remove(request.user)  # Zaten beğenmemişse kaldır
+    else:
+        post.dislikes.add(request.user)  # Beğenmeme ekle
+        post.likes.remove(request.user)  # Beğendiyse kaldır
+    return redirect(request.META.get('HTTP_REFERER', '/'))  # Geldiği sayfaya yönlendir

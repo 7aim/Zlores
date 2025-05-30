@@ -12,10 +12,16 @@
     <!-- Post sehifesi.Post haqqinda melumatlar ve funksiyalar-->
     <div class="post-detail">
         <h1>{{ post.title }}</h1>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 100%; height: auto; border-radius: 10px; ">
+        {% endif %}
+        <p>
+            <a href="{% url 'likepost' post.id %}" class="like-button">{{ post.totallikes }}</a>
+            <a href="{% url 'dislikepost' post.id %}" class="dislike-button">{{ post.totaldislikes }}</a>
+        </p>
         <p class="content">{{ post.content }}</p>
-        <p class="meta"><strong>Author:</strong> {{ post.author.username }}</p>
+        <a class="author" href="{% url 'userprofile' post.author %}">by {{ post.author }}</a>
         <p class="meta"><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
-        <p class="meta"><strong>Score:</strong> {{ post.score }}</p>
         {% if user.username == post.author.username %}
             <a class="update" href="{% url 'updatepost' post.id %}">Update</a>
             <a class="delete" href="{% url 'deletepost' post.id %}">Delete</a>
@@ -26,7 +32,7 @@
     <div class="comments">
         <h2>Comments</h2>
         <div class="comment-container">
-
+            
             <!-- Comment yazma hissesi-->
             <div class="comment-container">
                 <p><strong>{{ user.username }}</strong>
@@ -38,7 +44,7 @@
             </div>
 
             <!-- Commentlerin oldugu hisse-->
-            {% for comment in post.comments.all %}
+            {% for comment in comments %}
                 <div class="comment-container">
                     <p><strong>{{ comment.author.username }}</strong>: {{ comment.content }}</p>
                     <p><small>{{ comment.created_at|date:"d M Y H:i" }}</small></p>
@@ -51,7 +57,6 @@
                     <p>No comments yet.</p>
                 </div>
             {% endfor %}
-            
         </div>
     </div>
 {% endblock %}

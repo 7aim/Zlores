@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Your Profile - Zlores{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/userprofile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="profile-form">
+        {% csrf_token %}
+        <div class="profile-image">
+            <img src="{{ profile.image.url }}">
+        </div>
+        <h2>{{ author }}</h2>
+        <div class="profile-form">
+            <h2>{{ profile.bio }}</h2>
+            <h2>{{ profile.link }}</h2>
+        </div>
+    </div>
+{% endblock %}

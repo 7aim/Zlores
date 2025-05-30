@@ -9,17 +9,28 @@
 {% endblock %}
 
 {% block content %}
-    <div class="myposts">
+    <!--Ana sehife-->
+    <div class="home">
         {% if posts.exists %}
             <div class="post-list">
                 {% for post in posts %}
                     <div class="post-container">
-                        <h2>{{ post.title }}</h2>
-                        <p>by <b>{{ post.author }}</b></p>
-                        <p>{{ post.content|truncatewords:20 }}</p>
-                        <p><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
-                        <p><strong>Score:</strong> {{ post.score }}</p>
-                        <a class="read-more" href="{% url 'postdetail' post.id %}">Read More</a>
+                        <div class="post-content">
+                            <h2>{{ post.title }}</h2>
+                            <a class="read-more" href="{% url 'userprofile' post.author %}">by {{ post.author }}</a>
+                            <p>{{ post.content|truncatewords:20 }}</p>
+                            <p><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
+                            <p>
+                                <a href="{% url 'likepost' post.id %}" class="like-button">{{ post.totallikes }}</a>
+                                <a href="{% url 'dislikepost' post.id %}" class="dislike-button">{{ post.totaldislikes }}</a>
+                            </p>
+                            <a class="read-more" href="{% url 'postdetail' post.id %}">Read More</a>
+                        </div>
+                        {% if post.image %}
+                        <div class="post-image">
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                        </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
