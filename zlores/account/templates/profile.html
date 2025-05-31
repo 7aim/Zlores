@@ -16,6 +16,18 @@
                 <img src="{{ profile.image.url }}">
             </div>
             <h2>{{ user.username}}</h2>
+
+            <div class="profile-stats">
+                <div class="stat">
+                    <span class="stat-number">{{ followers_count }}</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">{{ following_count }}</span>
+                    <span class="stat-label">Following</span>
+                </div>
+            </div>
+            
             <label for="image">Upload Image</label>
             <input type="file" id="image" name="image" accept="image/*">
             <label for="bio">Bio:</label>

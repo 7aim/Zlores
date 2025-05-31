@@ -8,4 +8,6 @@ urlpatterns = [
     path('resetpassword', views.resetpassword_request, name='resetpassword'),
     path('profile', views.profile_request, name='profile'),
     path('userprofile/<str:author>/', views.userprofile_request, name='userprofile'),
+    path('follow/<str:author>/', views.follow_request, name='follow'),
+    path('unfollow/<str:author>/', views.unfollow_request, name='unfollow'),
 ]

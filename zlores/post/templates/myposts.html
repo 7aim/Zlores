@@ -17,7 +17,7 @@
                 {% for post in posts %}
                     <div class="post-container">
                         <div class="post-content">
-                            <h2>{{ post.title }}</h2>
+                            <h2><a class="read-more" href="{% url 'postdetail' post.id %}">{{ post.title }}</a></h2>
                             <p>{{ post.content|truncatewords:20 }}</p>
                             <p><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
                             <p>

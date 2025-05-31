@@ -73,3 +73,12 @@ body {
     object-fit: cover; /* Resmi kutuya sığdır ve kırp */
     border-radius: 50%; /* Resmin köşelerini yuvarla */
 }
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.stat {
+    text-align: center;
+}

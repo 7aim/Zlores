@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Follow
 from post.models import Post
 from django.contrib.auth.decorators import login_required
 
@@ -58,6 +58,8 @@ def resetpassword_request(request):
 def profile_request(request):
     # Profile nesnesini kontrol et ve oluştur
     profile, created = Profile.objects.get_or_create(user=request.user)
+    followers_count = Follow.objects.filter(following=request.user).count()  # Takipçi sayısı
+    following_count = Follow.objects.filter(follower=request.user).count()  # Takip edilen kişi sayısı
 
     if request.method == "POST":
         form_type = request.POST.get('form_type')  # Hangi formun gönderildiğini kontrol et
@@ -92,10 +94,36 @@ def profile_request(request):
                 user.save()
                 return redirect('profile')
 
-    return render(request, 'profile.html', {'profile': profile})
+    return render(request, 'profile.html', {
+        'profile': profile,
+        'followers_count': followers_count,
+        'following_count': following_count,
+    })
 
 @login_required
 def userprofile_request(request, author):
-    user = User.objects.get(username=author)
-    profile = Profile.objects.get(user=user)
-    return render(request, 'userprofile.html', {'author' : author, 'profile' : profile})
+    user = get_object_or_404(User, username=author)
+    profile = get_object_or_404(Profile, user=user)
+    followers_count = Follow.objects.filter(following=user).count()  # Takipçi sayısı
+    following_count = Follow.objects.filter(follower=user).count()  # Takip edilen kişi sayısı
+    is_following = Follow.objects.filter(follower=request.user, following=user).exists()  # Takip durumu
+
+    return render(request, 'userprofile.html', {
+        'author': user,
+        'profile': profile,
+        'followers_count': followers_count,
+        'following_count': following_count,
+        'is_following': is_following,
+    })
+
+@login_required
+def follow_request(request, author):
+    user_to_follow = get_object_or_404(User, username=author)  # Takip edilecek kullanıcıyı al
+    Follow.objects.get_or_create(follower=request.user, following=user_to_follow)  # Takip et
+    return redirect('userprofile', author=author)  # Profil sayfasına yönlendir
+
+@login_required
+def unfollow_request(request, author):
+    user_to_unfollow = get_object_or_404(User, username=author)  # Takipten çıkılacak kullanıcıyı al
+    Follow.objects.filter(follower=request.user, following=user_to_unfollow).delete()  # Takipten çık
+    return redirect('userprofile', author=author)  # Profil sayfasına yönlendir

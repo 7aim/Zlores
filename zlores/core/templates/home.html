@@ -9,33 +9,36 @@
 {% endblock %}
 
 {% block content %}
-    <!--Ana sehife-->
     <div class="home">
         {% if posts.exists %}
             <div class="post-list">
                 {% for post in posts %}
                     <div class="post-container">
                         <div class="post-content">
-                            <h2>{{ post.title }}</h2>
-                            <a class="read-more" href="{% url 'userprofile' post.author %}">by {{ post.author }}</a>
-                            <p>{{ post.content|truncatewords:20 }}</p>
-                            <p><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
-                            <p>
-                                <a href="{% url 'likepost' post.id %}" class="like-button">{{ post.totallikes }}</a>
-                                <a href="{% url 'dislikepost' post.id %}" class="dislike-button">{{ post.totaldislikes }}</a>
+                            <h2><a href="{% url 'postdetail' post.id %}">{{ post.title }}</a></h2>
+                            <p class="post-author">by <a href="{% url 'userprofile' post.author %}"><strong>{{ post.author }}</strong></a></p>
+                            <p class="post-snippet">{{ post.content|truncatewords:20 }}</p>
+                            <p class="post-meta">
+                                <span><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</span>
                             </p>
-                            <a class="read-more" href="{% url 'postdetail' post.id %}">Read More</a>
+                            <div class="post-actions">
+                                <a href="{% url 'likepost' post.id %}" class="like-button">👍 {{ post.totallikes }}</a>
+                                <a href="{% url 'dislikepost' post.id %}" class="dislike-button">👎 {{ post.totaldislikes }}</a>
+                                <a href="{% url 'postdetail' post.id %}" class="read-more">Read More</a>
+                            </div>
                         </div>
-                        {% if post.image %}
                         <div class="post-image">
-                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                            {% else %}
+                                <img src="{% static 'images/default.jpg' %}" alt="Default Image">
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p class="no-posts">You haven't created any posts yet.</p>
+            <p class="no-posts">No posts available.</p>
         {% endif %}
     </div>
 {% endblock %}
