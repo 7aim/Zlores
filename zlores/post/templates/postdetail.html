@@ -15,12 +15,15 @@
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 100%; height: auto; border-radius: 10px; ">
         {% endif %}
+        
+        <p class="post-author">by <a href="{% url 'userprofile' post.author %}"><strong>{{ post.author }}</strong></a></p>
         <div class="post-actions">
             <a href="{% url 'likepost' post.id %}" class="like-button">👍 {{ post.totallikes }}</a>
             <a href="{% url 'dislikepost' post.id %}" class="dislike-button">👎 {{ post.totaldislikes }}</a>
         </div>
-        <p class="content">{{ post.content }}</p>
-        <p class="post-author">by <a href="{% url 'userprofile' post.author %}"><strong>{{ post.author }}</strong></a></p>
+        <div class="comment-container"> <!-- # -->
+            <p class="content">{{ post.content }}</p>
+        </div>
         <p class="meta"><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
         {% if user.username == post.author.username %}
             <a class="submit-button" href="{% url 'updatepost' post.id %}">Update</a>
@@ -30,7 +33,6 @@
 
     <!-- Comment sehifesi.Comment haqqinda melumatlar ve funksiyalar-->
     <div class="comments">
-        <h2>Comments</h2>
         <div class="comment-container">
             
             <!-- Comment yazma hissesi-->

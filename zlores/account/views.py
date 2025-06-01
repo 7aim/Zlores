@@ -100,14 +100,14 @@ def logout_request(request):
 def profile_request(request):
     # Profile modelini kontrol et ve yarat
     profile, created = Profile.objects.get_or_create(user=request.user)
-    followers_count = Follow.objects.filter(following=request.user).count() 
+    followers_count = Follow.objects.filter(following=request.user).count()
     following_count = Follow.objects.filter(follower=request.user).count()
 
     if request.method == "POST":
-        form_type = request.POST.get('form_type')  # Hangi formun gonderildiyini tap
+        form_type = request.POST.get('form_type')  # Hangi formun gönderildiğini belirle
 
         if form_type == "profile":
-            # Profile formunu
+            # Profil bilgilerini güncelle
             if request.POST.get('bio'):
                 profile.bio = request.POST['bio']
             if request.POST.get('link'):
@@ -118,17 +118,39 @@ def profile_request(request):
             return redirect('profile')
 
         elif form_type == "settings":
-            # Settings formu
+            # Kullanıcı bilgilerini güncelle
             user = request.user
 
-            # Usenname uzunluq yoxlanisi
-            if request.POST.get('username') < 3:
-                return render(request, 'register.html', {
+            # Kullanıcı adı uzunluk kontrolü
+            new_username = request.POST.get('username')
+            if new_username and len(new_username) < 3:
+                return render(request, 'profile.html', {
+                    'profile': profile,
+                    'followers_count': followers_count,
+                    'following_count': following_count,
                     'errormessage': 'Username must be at least 3 characters long.'
                 })
-            else:
-                user.username = request.POST['username']
 
+            # Kullanıcı adı ve e-posta kontrolü
+            if User.objects.filter(username=new_username).exclude(id=user.id).exists():
+                return render(request, 'profile.html', {
+                    'profile': profile,
+                    'followers_count': followers_count,
+                    'following_count': following_count,
+                    'errormessage': 'Username already exists.'
+                })
+
+            if User.objects.filter(email=request.POST.get('email')).exclude(id=user.id).exists():
+                return render(request, 'profile.html', {
+                    'profile': profile,
+                    'followers_count': followers_count,
+                    'following_count': following_count,
+                    'errormessage': 'Email already exists.'
+                })
+
+            # Kullanıcı bilgilerini güncelle
+            if new_username:
+                user.username = new_username
             if request.POST.get('first_name'):
                 user.first_name = request.POST['first_name']
             if request.POST.get('last_name'):
@@ -136,14 +158,8 @@ def profile_request(request):
             if request.POST.get('email'):
                 user.email = request.POST['email']
 
-            # Username ve mailin olub olmama yoxlanisi
-            if User.objects.filter(username=user.username).exclude(id=user.id).exists() or User.objects.filter(email=user.email).exclude(id=user.id).exists():
-                return render(request, 'profile.html', {
-                    'errormessage': 'Username or email already exists.'
-                })
-            else:
-                user.save()
-                return redirect('profile')
+            user.save()
+            return redirect('profile')
 
     return render(request, 'profile.html', {
         'profile': profile,

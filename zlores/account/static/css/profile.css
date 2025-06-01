@@ -112,3 +112,10 @@ body {
 .stat {
     text-align: center;
 }
+
+.profile-form .login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #8d759b;
+}
