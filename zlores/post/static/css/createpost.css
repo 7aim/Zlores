@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+    background-color: #0f0614;
     margin: 0;
     padding: 0;
 }
@@ -8,54 +8,78 @@ body {
 .createpost {
     max-width: 600px;
     margin: 50px auto;
-    background: #ffffff;
+    background: #0f0614;
+    border: 2px solid #311341;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    transition: background 0.6s ease, border-color 0.6s ease;
 }
+
+.createpost:hover {
+    background: #08030a;
+    border-color: #602580; /* Hover durumunda border rengi beyaz */
+}
+
 
 .createpost h1 {
     text-align: center;
-    color: #333;
+    color: #e9c1ff;
     margin-bottom: 20px;
+    transition: color 0.6s ease
+}
+
+.createpost h1:hover {
+    color: white;
 }
 
 .createpost label {
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
-    color: #555;
+    color: #e9c1ff;
+    transition: color 0.6s ease
+}
+
+.createpost label:hover {
+    color: white;
 }
 
 .createpost input, 
 .createpost textarea, 
 .createpost button {
     width: 100%;
+    color: #e9c1ff; /* Metin rengi */
+    background-color: #0f0614; /* Arka plan rengi */
     margin-bottom: 15px;
     padding: 12px;
-    border: 1px solid #ddd;
+    padding: 12px;
+    border: 1px solid #311341;
     border-radius: 4px;
     font-size: 14px;
     box-sizing: border-box;
     resize: none;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease; /* Geçiş efektleri */
 }
 
 .createpost input:focus, 
 .createpost textarea:focus {
-    border-color: #007BFF;
+    border-color: #602580;
+    background-color: #08030a;
+    color: white;
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .createpost button {
-    background-color: #007BFF;
-    color: white;
+    background-color: #0f0614;
+    border: 1px solid #311341;
+    color: #e9c1ff;
     font-weight: bold;
     cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease;
+    transition: background 0.6s ease, color 0.6s ease, border-color 0.6s ease;
 }
 
 .createpost button:hover {
-    background-color: #0056b3;
+    color: white;
+    background-color: #602580;
+    border-color: #602580;
 }

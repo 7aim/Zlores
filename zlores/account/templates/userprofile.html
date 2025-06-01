@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+<!--User profile sehifesi-->
 <div class="profile-container">
     <div class="profile-header">
         <div class="profile-image">
@@ -20,24 +21,24 @@
     </div>
 
     <div class="profile-stats">
-        <div class="stat">
-            <span class="stat-number">{{ followers_count }}</span>
-            <span class="stat-label">Followers</span>
+        <div>
+            <span>{{ followers_count }}</span>
+            <span>Followers</span>
         </div>
-        <div class="stat">
-            <span class="stat-number">{{ following_count }}</span>
-            <span class="stat-label">Following</span>
+        <div>
+            <span>{{ following_count }}</span>
+            <span>Following</span>
         </div>
     </div>
 
-    <div class="profile-actions">
-        {% if author.username != user.username %}
+    {% if author.username != user.username %}
+    <div class="profile-actions" >
             {% if is_following %}
-                <a href="{% url 'unfollow' author.username %}" class="btn unfollow-btn">Unfollow</a>
+                <a href="{% url 'unfollow' author.username %}" class="btn">Unfollow</a>
             {% else %}
-                <a href="{% url 'follow' author.username %}" class="btn follow-btn">Follow</a>
+                <a href="{% url 'follow' author.username %}" class="btn">Follow</a>
             {% endif %}
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

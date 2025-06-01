@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+    <!--Profile hissesi-->
     <div class="profile-form">
         <form action="{% url 'profile' %}" method="POST" id="profile-form" enctype="multipart/form-data">
             {% csrf_token %}
@@ -40,6 +41,7 @@
         </form>
     </div>
 
+    <!--Settings hissesi-->
     <div class="profile-form">
         <h2>Settings</h2>
         <form action="{% url 'profile' %}" method="POST" id="settings-form">

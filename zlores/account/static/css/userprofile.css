@@ -1,22 +1,24 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+    background-color: #0f0614;
     margin: 0;
     padding: 0;
 }
 
 .profile-container {
     max-width: 600px;
-    margin: 50px auto;
-    background: #ffffff;
+    margin: 75px auto;
+    background: #0f0614;
+    border: 2px solid #311341;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
+    transition: background 0.6s ease, border-color 0.6s ease;
 }
 
-.profile-header {
-    margin-bottom: 20px;
+.profile-container:hover {
+    background: #08030a;
+    border-color: #602580; /* Hover durumunda border rengi beyaz */
 }
 
 .profile-image {
@@ -38,75 +40,57 @@ body {
 .profile-username {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #e9c1ff;
     margin: 10px 0;
 }
 
 .profile-bio {
     font-size: 14px;
-    color: #555;
+    color: #e9c1ff;
     margin-bottom: 10px;
 }
 
 .profile-link {
     font-size: 14px;
-    color: #007BFF;
+    color: #8d759b;
     text-decoration: none;
-}
-
-.profile-link:hover {
-    color: #0056b3;
 }
 
 .profile-stats {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
+    color: #e9c1ff;
+    text-decoration: none;
+    transition: color 0.6s ease
 }
 
-.stat {
-    text-align: center;
-}
-
-.stat-number {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-}
-
-.stat-label {
-    font-size: 14px;
-    color: #555;
+.profile-stats:hover {
+    color: white;
 }
 
 .profile-actions {
-    margin-top: 20px;
+    color: #e9c1ff;
+    background-color: #0f0614;
+    border: 1px solid #311341;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.6s ease, border-color 0.6s ease;
+}
+
+.profile-actions:hover {
+    background-color: #602580;
+    border-color: #602580;
 }
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
+    color: #e9c1ff;
     text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: color 0.6s ease
 }
 
-.follow-btn {
-    background-color: #007BFF;
-    color: white;
-}
-
-.follow-btn:hover {
-    background-color: #0056b3;
-}
-
-.unfollow-btn {
-    background-color: #FF0000;
-    color: white;
-}
-
-.unfollow-btn:hover {
-    background-color: #cc0000;
+.btn:hover {
+    color: #ffffff;
+    text-decoration: none;
 }

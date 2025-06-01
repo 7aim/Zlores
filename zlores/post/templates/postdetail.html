@@ -15,16 +15,16 @@
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="Post Image" style="max-width: 100%; height: auto; border-radius: 10px; ">
         {% endif %}
-        <p>
-            <a href="{% url 'likepost' post.id %}" class="like-button">{{ post.totallikes }}</a>
-            <a href="{% url 'dislikepost' post.id %}" class="dislike-button">{{ post.totaldislikes }}</a>
-        </p>
+        <div class="post-actions">
+            <a href="{% url 'likepost' post.id %}" class="like-button">👍 {{ post.totallikes }}</a>
+            <a href="{% url 'dislikepost' post.id %}" class="dislike-button">👎 {{ post.totaldislikes }}</a>
+        </div>
         <p class="content">{{ post.content }}</p>
-        <a class="author" href="{% url 'userprofile' post.author %}">by {{ post.author }}</a>
+        <p class="post-author">by <a href="{% url 'userprofile' post.author %}"><strong>{{ post.author }}</strong></a></p>
         <p class="meta"><strong>Created:</strong> {{ post.created_at|date:"d M Y H:i" }}</p>
         {% if user.username == post.author.username %}
-            <a class="update" href="{% url 'updatepost' post.id %}">Update</a>
-            <a class="delete" href="{% url 'deletepost' post.id %}">Delete</a>
+            <a class="submit-button" href="{% url 'updatepost' post.id %}">Update</a>
+            <a class="submit-button" href="{% url 'deletepost' post.id %}">Delete</a>
         {% endif %}
     </div>
 
@@ -49,7 +49,7 @@
                     <p><strong>{{ comment.author.username }}</strong>: {{ comment.content }}</p>
                     <p><small>{{ comment.created_at|date:"d M Y H:i" }}</small></p>
                     {% if user.username == post.author.username %}
-                        <a class="delete" href="{% url 'deletecomment' post.id comment.id %}">Delete</a>
+                        <a class="submit-button" href="{% url 'deletecomment' post.id comment.id %}">Delete</a>
                     {% endif %}
                 </div>
             {% empty %}

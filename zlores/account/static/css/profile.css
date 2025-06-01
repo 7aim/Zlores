@@ -1,63 +1,86 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+    background-color: #0f0614;
     margin: 0;
     padding: 0;
 }
 
 .profile-form {
-    max-width: 500px;
-    margin: 50px auto;
-    background: #ffffff;
+    max-width: 600px;
+    margin: 25px auto;
+    background: #0f0614;
+    border: 2px solid #311341;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    transition: background 0.6s ease, border-color 0.6s ease;
+}
+
+.profile-form:hover {
+    background: #08030a;
+    border-color: #602580; /* Hover durumunda border rengi beyaz */
 }
 
 .profile-form h2 {
     text-align: center;
-    color: #333;
+    color: #e9c1ff;
     margin-bottom: 20px;
+    transition: color 0.6s ease
+}
+
+.profile-form h2:hover {
+    color: white;
 }
 
 .profile-form label {
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
-    color: #555;
+    color: #e9c1ff;
+    transition: color 0.6s ease
+}
+
+.profile-form label:hover {
+    color: white;
 }
 
 .profile-form input {
     width: 100%;
+    color: #e9c1ff; /* Metin rengi */
+    background-color: #0f0614; /* Arka plan rengi */
     margin-bottom: 15px;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #311341;
     border-radius: 4px;
     font-size: 14px;
     box-sizing: border-box;
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease; /* Geçiş efektleri */
 }
 
 .profile-form input:focus {
-    border-color: #007BFF;
+    border-color: #602580; /* Odaklanıldığında border rengi */
+    background-color: #08030a; /* Odaklanıldığında arka plan rengi */
+    color: white; /* Odaklanıldığında metin rengi */
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .profile-form button {
     width: 100%;
-    background-color: #007BFF;
-    color: white;
-    font-weight: bold;
+    color: #e9c1ff;
+    background-color: #0f0614;
+    border: 1px solid #311341;
     padding: 12px;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.6s ease, color 0.6s ease, border-color 0.6s ease;
 }
 
 .profile-form button:hover {
-    background-color: #0056b3;
+    color: white;
+    background-color: #602580;
+    border-color: #602580;
 }
+
 .profile-image {
     width: 170px; /* Resmin genişliği */
     height: 170px; /* Resmin yüksekliği */
@@ -77,6 +100,13 @@ body {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
+    color: #e9c1ff;
+    text-decoration: none;
+    transition: color 0.6s ease
+}
+
+.profile-stats:hover {
+    color: white;
 }
 
 .stat {

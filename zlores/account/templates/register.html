@@ -12,6 +12,12 @@
     <!--Register sehifesi-->
     <div class="register-form">
         <h2>Register</h2>
+
+            <!-- Hata mesajını göster -->
+            {% if errormessage %}
+                <p class="login-link">{{ errormessage }}</p>
+            {% endif %}
+
         <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
             <label for="username">Username:</label>

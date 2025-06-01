@@ -9,11 +9,13 @@
 {% endblock %}
 
 {% block content %}
+    <!--Core sehife-->
     <div class="home">
         {% if posts.exists %}
             <div class="post-list">
                 {% for post in posts %}
                     <div class="post-container">
+                        <!--Post detallari-->
                         <div class="post-content">
                             <h2><a href="{% url 'postdetail' post.id %}">{{ post.title }}</a></h2>
                             <p class="post-author">by <a href="{% url 'userprofile' post.author %}"><strong>{{ post.author }}</strong></a></p>
@@ -27,11 +29,11 @@
                                 <a href="{% url 'postdetail' post.id %}" class="read-more">Read More</a>
                             </div>
                         </div>
+                        
+                        <!--Post sekli-->
                         <div class="post-image">
                             {% if post.image %}
                                 <img src="{{ post.image.url }}" alt="{{ post.title }}">
-                            {% else %}
-                                <img src="{% static 'images/default.jpg' %}" alt="Default Image">
                             {% endif %}
                         </div>
                     </div>
