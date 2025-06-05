@@ -1,1 +1,11 @@
 .env
+*.env
+
+*.sqlite3
+
+/media/
+
+__pycache__/
+
+venv/
+zvenv/

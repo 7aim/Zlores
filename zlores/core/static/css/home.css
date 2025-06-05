@@ -145,6 +145,11 @@ body {
 
 .no-posts {
     text-align: center;
-    font-size: 18px;
-    color: #666;
+    font-size: 20px;
+    color: #e9c1ff;
+    transition: color 0.3s ease;
+}
+
+.no-posts:hover {
+    color: white;
 }
