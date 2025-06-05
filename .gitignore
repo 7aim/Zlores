@@ -3,7 +3,7 @@
 
 *.sqlite3
 
-/media/
+zlores/media/
 
 __pycache__/
 
