@@ -8,10 +8,10 @@ from django.contrib.auth.decorators import login_required
 # REGISTER
 def register_request(request):
     if request.method == "POST":
-        username = request.POST['username']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        email = request.POST['email']
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
         # Username uzunluq yoxlanisie
@@ -41,8 +41,8 @@ def register_request(request):
 # LOGIN
 def login_request(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
         # User axtarisi
         user = authenticate(request,username=username,password=password)
@@ -61,9 +61,9 @@ def login_request(request):
 # RESET PASSWORD
 def resetpassword_request(request):
     if request.method == "POST":
-        username = request.POST['username']
-        email = request.POST['email']
-        new_password = request.POST['new_password']
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        new_password = request.POST.get('new_password')
 
         # Yeni password uzunluq yoxlanisi
         if len(new_password) < 5:
@@ -109,9 +109,9 @@ def profile_request(request):
         if form_type == "profile":
             # Profil bilgilerini güncelle
             if request.POST.get('bio'):
-                profile.bio = request.POST['bio']
+                profile.bio = request.POST.get('bio')
             if request.POST.get('link'):
-                profile.link = request.POST['link']
+                profile.link = request.POST.get('link')
             if request.FILES.get('image'):
                 profile.image = request.FILES['image']
             profile.save()
@@ -152,11 +152,11 @@ def profile_request(request):
             if new_username:
                 user.username = new_username
             if request.POST.get('first_name'):
-                user.first_name = request.POST['first_name']
+                user.first_name = request.POST.get('first_name')
             if request.POST.get('last_name'):
-                user.last_name = request.POST['last_name']
+                user.last_name = request.POST.get('last_name')
             if request.POST.get('email'):
-                user.email = request.POST['email']
+                user.email = request.POST.get('email')
 
             user.save()
             return redirect('profile')
